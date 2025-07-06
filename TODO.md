@@ -17,3 +17,9 @@
 + Audio
   + [ ] Testing multiple audio cards / interfaces
   + [ ] Individual Track control of input/output channels
+
++ Dev
+  + [ ] Fix build system and CMake files
+  + [ ] Try building in Windows/Linux
+  + [ ] Improve Testing documentation
+  + [ ] Improve app documentation
