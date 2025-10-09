@@ -11,14 +11,13 @@ Built entirely using the [JUCE](https://github.com/juce-framework/JUCE) framewor
 
 Uses CMake as the build system, with that you can create IDE specific project files for development; here's an example of how you would do that for Xcode.
 
-First you will need to copy the repository into a local folder, then call:
-
 ```bash
-$ mkdir build
+$ cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
 
-$ cd build
+$ cmake --build build --target sproj2024
 
-$ cmake -G Xcode ..$
+# On MacOS Juce places the final binary here
+$ ./build/src/sproj2024_artefacts/Debug/Sproj2024.app/Contents/MacOS/Sproj2024
 ```
 
 This will create a project file for Xcode. (make sure you have Cmake version 3.22 or above)

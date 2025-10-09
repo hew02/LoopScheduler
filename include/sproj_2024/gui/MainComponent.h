@@ -2,13 +2,13 @@
 #include <juce_gui_extra/juce_gui_extra.h>
 #include <juce_audio_devices/juce_audio_devices.h>
 #include <juce_audio_utils/juce_audio_utils.h>
-#include <RulerDeckGUI.h>
-#include <ControlDeckGUI.h>
-#include <FreeDeckGUI.h>
-#include <MixDeckGUI.h>
-#include <MenuComponent.h>
-#include <DeviceSelectionMenu.h>
-#include <MainDeckHolder.h>
+#include "RulerDeckGUI.h"
+#include "ControlDeckGUI.h"
+#include "FreeDeckGUI.h"
+#include "MixDeckGUI.h"
+#include "MenuComponent.h"
+#include "DeviceSelectionMenu.h"
+#include "MainDeckHolder.h"
 
 class MainComponent final : public juce::Component,
                             public juce::ApplicationCommandTarget

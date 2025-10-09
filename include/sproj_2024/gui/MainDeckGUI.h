@@ -2,10 +2,10 @@
 // Created by Juan Diego on 12/30/24.
 //
 #pragma once
-#include <DeckGUI.h>
-#include <helpers.h>
+#include "DeckGUI.h"
+#include <sproj_2024/helpers/helpers.h>
 #include <juce_animation/juce_animation.h>
-#include <MainDeckTiles.h>
+#include "MainDeckTiles.h"
 
 //this is responsible for showing and organizing a grid of draggable components, with the height of a track
 class MainDeckTrack final : public juce::Component,

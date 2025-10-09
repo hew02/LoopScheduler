@@ -2,8 +2,7 @@
 
 cmake_minimum_required(VERSION 3.22)
 
-# Version is needed by JUCE.
-project(sproj2024 VERSION 0.1.0)
+project(sproj2024 VERSION 0.0.1)
 
 # Adding a directory with the library/application name as a subfolder of the
 # audio folder is a good practice. It helps avoid name clashes later on.
@@ -34,32 +33,11 @@ juce_add_gui_app(${PROJECT_NAME}
         # COMPANY_NAME ...                  # Specify the name of the app's author
         PRODUCT_NAME "Sproj2024")     # The name of the final executable, which can differ from the target name
 
-#
 #add_library(${PROJECT_NAME}_lib STATIC ${PROJECT_BINARY_DIR})
-
 
 target_sources(${PROJECT_NAME}
         PRIVATE
-        audio/AudioPlayer.h
-        audio/AudioClock.h
-        audio/MainAudio.h
-        audio/Recorder.h
-        audio/SPAudioProcessor.h
-        audio/Track.h
-        gui/ControlDeckGUI.h
-        gui/DeckGUI.h
-        gui/DeviceSelectionMenu.h
-        gui/DummyClip.h
-        gui/FreeDeckGUI.h
-        gui/MainComponent.h
-        gui/MainWindow.h
-        gui/MenuComponent.h
-        gui/MixDeckGUI.h
-        gui/RulerDeckGUI.h
-        gui/SPCommandManager.h
-        gui/MainDeckHolder.h
-
-        main/Main.cpp
+        Main.cpp
         audio/MainAudio.cpp
         audio/SPAudioProcessor.cpp
         gui/MainComponent.cpp
@@ -74,7 +52,6 @@ target_include_directories(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/audio
         ${CMAKE_CURRENT_SOURCE_DIR}/gui
         ${CMAKE_CURRENT_SOURCE_DIR}/main
-        ${CMAKE_CURRENT_SOURCE_DIR}/helpers
 )
 
 # Links to all necessary dependencies. The present ones are recommended by JUCE.

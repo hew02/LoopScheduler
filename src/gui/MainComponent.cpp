@@ -1,4 +1,4 @@
-#include "MainComponent.h"
+#include <sproj_2024/gui/MainComponent.h>
 #include <focusrite/e2e/ComponentSearch.h>
 
 MainComponent::MainComponent(const juce::ValueTree& tree, SPCommandManager& manager, juce::AudioDeviceManager& dmanager)

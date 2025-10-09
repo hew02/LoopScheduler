@@ -18,10 +18,10 @@ ADD MIDI
 
 #pragma once
 
-#include "juce_audio_processors/juce_audio_processors.h"
-#include "juce_audio_utils/juce_audio_utils.h"
-#include "juce_audio_devices/juce_audio_devices.h"
-#include <SPCommandManager.h>
+#include <juce_audio_processors/juce_audio_processors.h>
+#include <juce_audio_utils/juce_audio_utils.h>
+#include <juce_audio_devices/juce_audio_devices.h>
+#include <sproj_2024/gui/SPCommandManager.h>
 #include "Track.h"
 
 /*  MainAudio

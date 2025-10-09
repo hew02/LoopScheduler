@@ -3,10 +3,10 @@
 //
 
 #include <gtest/gtest.h>
-#include "sproj_2024_lib/audio/Track.h"
-#include <sproj_2024_lib/gui/SPCommandManager.h>
-#include <sproj_2024_lib/audio/AudioClock.h>
-#include <sproj_2024_lib/audio/MainAudio.h>
+#include <sproj_2024/audio/Track.h>
+#include <sproj_2024/gui/SPCommandManager.h>
+#include <sproj_2024/audio/AudioClock.h>
+#include <sproj_2024/audio/MainAudio.h>
 
 TEST(TrackTest, Track_PauseOrResumeProcessing_1_Test)
 {

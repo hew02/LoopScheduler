@@ -5,9 +5,9 @@
 #pragma once
 #include "Recorder.h"
 #include "AudioPlayer.h"
-#include <SPCommandManager.h>
+#include <sproj_2024/gui/SPCommandManager.h>
 #include "AudioClock.h"
-#include <helpers.h>
+#include <sproj_2024/helpers/helpers.h>
 
 /*  Track
  *

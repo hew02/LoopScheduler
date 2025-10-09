@@ -77,8 +77,10 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 # This command allows running tests from the "build" folder (the one where CMake generates the project to).
 enable_testing()
 
+include_directories(include)
+
 # Adds all the targets configured in the "plugin_test_cmake" folder.
-add_subdirectory(sproj_2024)
+add_subdirectory(src)
 
 # Adds all the targets configured in the "test" folder.
-add_subdirectory(test)
+#add_subdirectory(test)

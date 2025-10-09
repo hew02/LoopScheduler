@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#include <MainDeckGUI.h>
-#include <MainDeckTiles.h>
+#include "MainDeckGUI.h"
+#include "MainDeckTiles.h"
 #include <focusrite/e2e/ComponentSearch.h>
 
 class MainDeckMask final : public juce::Component,
