@@ -2,7 +2,7 @@
 // Created by Juan Diego on 10/23/24.
 //
 
-#include "SPAudioProcessor.h"
+#include <sproj_2024/audio/SPAudioProcessor.h>
 
 SPAudioProcessor::SPAudioProcessor()
      : juce::AudioProcessor (BusesProperties()

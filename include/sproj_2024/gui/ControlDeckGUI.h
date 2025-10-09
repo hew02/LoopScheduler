@@ -3,9 +3,9 @@
 //
 
 #pragma once
-#include <DeckGUI.h>
-#include <helpers.h>
-#include "focusrite/e2e/ComponentSearch.h"
+#include "DeckGUI.h"
+#include <sproj_2024/helpers/helpers.h>
+#include <focusrite/e2e/ComponentSearch.h>
 
 //Metronome class
 class ClockGUI final : public juce::Component,

@@ -5,7 +5,7 @@
 
 #include <juce_audio_devices/juce_audio_devices.h>
 #include <juce_audio_utils/juce_audio_utils.h>
-#include <SPCommandManager.h>
+#include "SPCommandManager.h"
 
 class DeviceSelectionMenu final : public juce::DocumentWindow,
                                   public juce::ChangeListener,

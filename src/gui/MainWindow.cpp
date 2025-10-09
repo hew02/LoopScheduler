@@ -2,7 +2,7 @@
 // Created by Juan Diego on 10/6/24.
 //
 
-#include <MainWindow.h>
+#include "sproj_2024/gui/MainWindow.h"
 
 MainWindow::MainWindow (const juce::String& name, MainComponent* mainComponent) : DocumentWindow (name, juce::Desktop::getInstance().getDefaultLookAndFeel().findColour
                            (ResizableWindow::backgroundColourId), DocumentWindow::allButtons)
@@ -11,10 +11,10 @@ MainWindow::MainWindow (const juce::String& name, MainComponent* mainComponent) 
     setContentOwned (mainComponent, true);
 
     setResizable (true, true);
-    centreWithSize (getWidth(), getHeight());
+    centreWithSize(getWidth(), getHeight());
     setFullScreen(true);
-
-    MainWindow::setVisible (true);
+    
+    setVisible(true);
 
     //MELATONIN WINDOW
     // open the inspector window

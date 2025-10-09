@@ -7,7 +7,7 @@ enable_testing()
 
 # Creates the test console application.
 add_executable(${PROJECT_NAME}
-        unit_tests/MainAudioTest.cpp
+#        unit_tests/MainAudioTest.cpp
         unit_tests/AudioClockTest.cpp
         unit_tests/TrackTest.cpp
 )

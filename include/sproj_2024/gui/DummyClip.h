@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#include <DeckGUI.h>
-#include "helpers.h"
+#include "DeckGUI.h"
+#include <sproj_2024/helpers/helpers.h>
 
 
 class DummyClip final : public juce::Component,

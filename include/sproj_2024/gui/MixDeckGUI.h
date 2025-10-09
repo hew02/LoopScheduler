@@ -2,7 +2,7 @@
 // Created by Juan Diego on 12/30/24.
 //
 #pragma once
-#include <DeckGUI.h>
+#include "DeckGUI.h"
 #include <focusrite/e2e/ComponentSearch.h>
 
 class MixDeckTrack final : public juce::Component,
