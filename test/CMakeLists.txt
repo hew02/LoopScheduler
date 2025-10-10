@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
 
-project(sproj2024_test)
+project(LoopScheduler_test)
 
 # Signals to CMake that we want to run tests from this directory.
 enable_testing()

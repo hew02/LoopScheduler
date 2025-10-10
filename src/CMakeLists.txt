@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.22)
 
-project(sproj2024 VERSION 0.0.1)
+project(LoopScheduler VERSION 0.0.1)
 
 # Adding a directory with the library/application name as a subfolder of the
 # audio folder is a good practice. It helps avoid name clashes later on.
@@ -31,7 +31,7 @@ juce_add_gui_app(${PROJECT_NAME}
         # ICON_SMALL ...
         # DOCUMENT_EXTENSIONS ...           # Specify file extensions that should be associated with this app
         # COMPANY_NAME ...                  # Specify the name of the app's author
-        PRODUCT_NAME "Sproj2024")     # The name of the final executable, which can differ from the target name
+        PRODUCT_NAME "LoopScheduler")     # The name of the final executable, which can differ from the target name
 
 #add_library(${PROJECT_NAME}_lib STATIC ${PROJECT_BINARY_DIR})
 

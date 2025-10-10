@@ -1,6 +1,11 @@
 # Prerequisites
 *.d
 
+# Clion
+.idea/
+*.iml
+*.xml
+
 # Compiled Object files
 *.slo
 *.lo

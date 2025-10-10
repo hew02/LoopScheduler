@@ -2,10 +2,10 @@
  * Entry point
  */
 
-#include <sproj_2024/audio/MainAudio.h>
-#include <sproj_2024/gui/MainWindow.h>
-#include <sproj_2024/helpers/helpers.h>
-#include <sproj_2024/gui/SPCommandManager.h>
+#include <audio/MainAudio.h>
+#include <gui/MainWindow.h>
+#include <helpers/helpers.h>
+#include <gui/SPCommandManager.h>
 #include <focusrite/e2e/TestCentre.h>
 
 /* TODO:

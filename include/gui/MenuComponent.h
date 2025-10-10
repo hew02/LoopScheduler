@@ -5,7 +5,7 @@
 #pragma once
 
 #include <juce_gui_basics/juce_gui_basics.h>
-#include <sproj_2024/helpers/helpers.h>
+#include <helpers/helpers.h>
 #include "SPCommandManager.h"
 
 class MenuComponent final : public juce::Component,

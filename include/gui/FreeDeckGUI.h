@@ -5,7 +5,7 @@
 #include <juce_gui_extra/juce_gui_extra.h>
 #include "DeckGUI.h"
 #include "DummyClip.h"
-#include <sproj_2024/helpers/helpers.h>
+#include <helpers/helpers.h>
 
 class FreeDeckGUI final : public juce::Component,
                           public DeckGUI,

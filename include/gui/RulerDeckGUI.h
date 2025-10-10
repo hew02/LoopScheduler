@@ -6,7 +6,7 @@
 #include "DeckGUI.h"
 
 class RulerDeckGUI final : public juce::Component,
-                          public DeckGUI
+                           public DeckGUI
 {
 public:
 

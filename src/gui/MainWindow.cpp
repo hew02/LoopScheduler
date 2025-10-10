@@ -2,7 +2,7 @@
 // Created by Juan Diego on 10/6/24.
 //
 
-#include "sproj_2024/gui/MainWindow.h"
+#include "gui/MainWindow.h"
 
 MainWindow::MainWindow (const juce::String& name, MainComponent* mainComponent) : DocumentWindow (name, juce::Desktop::getInstance().getDefaultLookAndFeel().findColour
                            (ResizableWindow::backgroundColourId), DocumentWindow::allButtons)

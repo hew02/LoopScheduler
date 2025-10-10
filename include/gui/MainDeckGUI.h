@@ -3,7 +3,7 @@
 //
 #pragma once
 #include "DeckGUI.h"
-#include <sproj_2024/helpers/helpers.h>
+#include <helpers/helpers.h>
 #include <juce_animation/juce_animation.h>
 #include "MainDeckTiles.h"
 
