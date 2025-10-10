@@ -1,28 +1,17 @@
-#THIS IS A CMAKE FILE FOR 3rd PARTY SOFTWARE SETUP (like juce and CPM)
-
-
-# Mandatory line, sets the minimum version of CMake that should be used with this repository.
-# I specified 3.22 because I trust it. However, currently I have 3.26 installed on my machine.
-# To verify your version run
-# $ cmake --version
 cmake_minimum_required(VERSION 3.22)
+project(sproj2024 VERSION 0.0.1)
 
-# Sets a few variables, like PROJECT_NAME
-project(sproj2024)
-
-# Always use the newest C++ standard on green-field projects if possible.
 # Currently, JUCE supports only C++ 20 cross-platform.
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # I like to download the dependencies to the same folder as the project.
 # If you want to install them system wide, set CPM_SOURCE_CACHE with the path to the dependencies
 # either as an environment variable or pass it to the cmake script with -DCPM_SOURCE_CACHE=<path>.
 set(LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake-build-debug/lib)
 
-# Downloads CPM if not already downloaded. CPM is an easy-to-use package manager nicely integrated with CMake.
 include(cmake/cpm.cmake)
-
-# This commands downloads AND configures JUCE. It sets up some variables, like JUCE_SOURCE_DIR.
 CPMAddPackage(
         NAME JUCE
         GIT_TAG 8.0.1 #this is done because JUCE versions don't follow the "vX.X.X" convention that cpm has for versions
@@ -42,13 +31,6 @@ CPMAddPackage(
         "INSTALL_GTEST OFF"
         "gtest_force_shared_crt ON"
 )
-
-#CPMAddPackage(
-#        NAME JIVE
-#        GITHUB_REPOSITORY ImJimmi/JIVE
-#        VERSION 1.2.2
-#        SOURCE_DIR ${LIB_DIR}/jive
-#)
 
 CPMAddPackage(
         NAME melatonin_inspector
@@ -70,6 +52,20 @@ CPMAddPackage(
         GITHUB_REPOSITORY jestjs/jest
         VERSION 29.7.0
         SOURCE_DIR ${LIB_DIR}/jest
+)
+
+CPMAddPackage(
+  NAME imgui
+  GITHUB_REPOSITORY ocornut/imgui
+  VERSION 1.91.9b-docking
+  SOURCE_DIR ${LIB_DIR}/imgui
+)
+
+CPMAddPackage(
+  NAME imgui_juce
+  GITHUB_REPOSITORY hew02/imgui_juce
+  GIT_TAG 1.0.0
+  SOURCE_DIR ${LIB_DIR}/imgui_juce
 )
 
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)

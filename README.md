@@ -25,3 +25,7 @@ This will create a project file for Xcode. (make sure you have Cmake version 3.2
 ## Testing instructions
 
 Uses [Focusrite/juce-end-to-end](https://github.com/FocusriteGroup/juce-end-to-end/tree/main) library. to build you must have npm installed, then use npm init on the root of the repository to create the package.json files, you might need to manually add the path for the testing files in the package.json file. then you can go to the test directory and run npm test to run the tests
+
+## Dependencies
+
+- https://pixtur.github.io/mkdocs-for-imgui/site/api-imgui/ImGui--Dear-ImGui-end-user/

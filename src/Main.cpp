@@ -53,7 +53,7 @@ public:
     // you could `#audio <JuceHeader.h>` and use `ProjectInfo::projectName` etc. instead.
     const juce::String getApplicationName() override { return JUCE_APPLICATION_NAME_STRING; }
     const juce::String getApplicationVersion() override { return JUCE_APPLICATION_VERSION_STRING; }
-    bool moreThanOneInstanceAllowed() override { return false; }
+    bool moreThanOneInstanceAllowed() { return false; }
 
     //==============================================================================
     void initialise(const juce::String& commandLine) override
@@ -71,21 +71,19 @@ public:
 
         mainComponent = std::make_unique<MainComponent>(valueTree, *commandManager, *deviceManager);
 
-        mainWindow = std::make_unique<MainWindow>(getApplicationName(), mainComponent.get());
+        mainWindow.reset(new MainWindow(getApplicationName(), mainComponent.get()));
 
         commandManager->registerAllCommandsForTarget(this);
         commandManager->addTargetToCommandManager(this);
 
-        //std::cerr << commandManager->getNumCommands() << std::endl;
+        fprintf(stdout, "Number of commands on tap: %d\n", commandManager->getNumCommands());
 
         //std::cerr << commandManager->invokeDirectly(SP_CommandID::print, true) << std::endl;
 
         testCentre = focusrite::e2e::TestCentre::create();
     }
 
-    void shutdown() override
-    {
-        // Add your application's shutdown code here...
+    void shutdown() {
         mainComponent = nullptr;
         mainWindow = nullptr;
         commandManager = nullptr;
@@ -96,8 +94,7 @@ public:
     }
 
     //==============================================================================
-    void systemRequestedQuit() override
-    {
+    void systemRequestedQuit() {
         // This is called when the app is being asked to quit: you can ignore this
         // request and let the app carry on running, or call quit() to allow the app to close.
         quit();
@@ -105,21 +102,18 @@ public:
 
     //ApplicationCommandTarget methods
 
-    juce::ApplicationCommandTarget* getNextCommandTarget() override
-    {
+    juce::ApplicationCommandTarget* getNextCommandTarget() override {
         return nullptr;
     }
 
-    void getAllCommands(juce::Array<juce::CommandID>& c) override
-    {
+    void getAllCommands(juce::Array<juce::CommandID>& c) override {
         juce::Array<juce::CommandID> commands{
             SP_CommandID::startOrStopProcessing
         };
         c.addArray(commands);
     }
 
-    void getCommandInfo(const juce::CommandID commandID, juce::ApplicationCommandInfo& result) override
-    {
+    void getCommandInfo(const juce::CommandID commandID, juce::ApplicationCommandInfo& result) override {
         switch (commandID)
         {
         case SP_CommandID::startOrStopProcessing:

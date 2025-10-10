@@ -15,7 +15,7 @@ class MainWindow final : public juce::DocumentWindow
 public:
     explicit MainWindow(const juce::String& name, MainComponent* mainComponent);
 
-    void closeButtonPressed();
+    void closeButtonPressed() override;
 
 private:
     //melatonin::Inspector inspector { *this }; //MELATONIN WINDOW

@@ -1,11 +1,23 @@
-#include <sproj_2024/gui/MainComponent.h>
+#include "sproj_2024/gui/MainComponent.h"
+#include <cstdlib>
 #include <focusrite/e2e/ComponentSearch.h>
 
+/**
+ * @brief Construct a new Main Component:: Main Component object
+ * 
+ * @param tree 
+ * @param manager 
+ * @param dmanager 
+ */
 MainComponent::MainComponent(const juce::ValueTree& tree, SPCommandManager& manager, juce::AudioDeviceManager& dmanager)
     : commandManager(manager), deviceManager(dmanager), valueTree(tree)
 
 {
-    rulerDeckGUI = std::make_shared<RulerDeckGUI>();
+    setOpaque(true);
+
+
+    // NOTE: old GUI stuff
+    /*rulerDeckGUI = std::make_shared<RulerDeckGUI>();
     controlDeckGui = std::make_shared<ControlDeckGUI>(valueTree);
     freeDeckGui = std::make_shared<FreeDeckGUI>(valueTree);
     mainDeckHolder = std::make_shared<MainDeckHolder>(valueTree, *freeDeckGui);
@@ -13,29 +25,45 @@ MainComponent::MainComponent(const juce::ValueTree& tree, SPCommandManager& mana
     menu = std::make_shared<MenuComponent>(commandManager);
     deviceSelector = std::make_shared<DeviceSelectionMenu>(deviceManager, commandManager);
 
-    setSize(600, 400);
-
     addAndMakeVisible(rulerDeckGUI.get());
     addAndMakeVisible(controlDeckGui.get());
     addAndMakeVisible(freeDeckGui.get());
     addAndMakeVisible(mixDeckGui.get());
     addAndMakeVisible(mainDeckHolder.get());
     addAndMakeVisible(menu.get());
-    addChildComponent(deviceSelector.get());
+    addChildComponent(deviceSelector.get());*/
 
-    focusrite::e2e::ComponentSearch::setTestId(*deviceSelector, "test_deviceSelector"); //for testing
+    // Set up opengl context
+    glCtx.setOpenGLVersionRequired(juce::OpenGLContext::openGL3_2);
+    glCtx.setRenderer(this);
+    glCtx.attachTo(*this);
+    glCtx.setContinuousRepainting(true);
+
+    //focusrite::e2e::ComponentSearch::setTestId(*deviceSelector, "test_deviceSelector"); // for testing
 
     commandManager.registerAllCommandsForTarget(this);
     commandManager.addTargetToCommandManager(this);
 
-    initializeApplication();
+    setSize(600, 400);
+    setWantsKeyboardFocus(true);
+
+    // TODO: ez create a new track
+    //createNewTrack();
 }
 
+/**
+ * @brief Destroy the Main Component:: Main Component object
+ * 
+ */
 MainComponent::~MainComponent()
 {
 
 }
 
+/**
+ * @brief Creates a new track.
+ * 
+ */
 void MainComponent::createNewTrack()
 {
     juce::ValueTree newNode(SP_ID::TRACK);
@@ -46,17 +74,14 @@ void MainComponent::createNewTrack()
     mainDeckHolder->addTrack(newNode);
 }
 
-void MainComponent::createNewDummyClip() //not the fastest way of doing this (better to initialize this before hand)
+/**
+ * @brief 
+ * 
+ * @note not the fastest way of doing this (better to initialize this before hand)
+ */
+void MainComponent::createNewDummyClip()
 {
     freeDeckGui->createNewDummyClip();
-}
-
-void MainComponent::initializeApplication() //only for sproj version of application
-{
-    for (int i = 0; i < 1; i++)
-    {
-        createNewTrack();
-    }
 }
 
 void MainComponent::startOrStopAnimation()
@@ -66,13 +91,14 @@ void MainComponent::startOrStopAnimation()
 
 void MainComponent::paint(juce::Graphics& g)
 {
+    // NOTE ImGui is now the backend
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
+    //g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
 }
 
 void MainComponent::resized()
 {
-    rulerDeckGUI->setBounds(getX(), getY(), getWidth(), controlDeckGui->getHeight());
+    /*rulerDeckGUI->setBounds(getX(), getY(), getWidth(), controlDeckGui->getHeight());
     controlDeckGui->setBounds(getX(), getY(), mixDeckGui->getWidth(), controlDeckGui->getHeight());
     freeDeckGui->setBounds(getX(), getHeight() - freeDeckGui->getHeight(), getWidth(), freeDeckGui->getHeight());
     mixDeckGui->setBounds(getX(), getY() + controlDeckGui->getHeight(), mixDeckGui->getWidth(), getHeight()
@@ -80,14 +106,14 @@ void MainComponent::resized()
     mainDeckHolder->setBounds(getX() + mixDeckGui->getWidth(), getY() + controlDeckGui->getHeight(), getWidth()
                              - mixDeckGui->getWidth(),
                              getHeight() - freeDeckGui->getHeight() - controlDeckGui->getHeight());
-    mainDeckHolder->resized();
+    mainDeckHolder->resized();*/
 }
 
 void MainComponent::childBoundsChanged(Component* child)
 {
     juce::ignoreUnused(child);
 
-    controlDeckGui->setBounds(getX(), getY(), mixDeckGui->getWidth(), controlDeckGui->getHeight());
+    /*controlDeckGui->setBounds(getX(), getY(), mixDeckGui->getWidth(), controlDeckGui->getHeight());
 
     freeDeckGui->setBounds(getX(), getHeight() - freeDeckGui->getHeight(), getWidth(), freeDeckGui->getHeight());
 
@@ -96,7 +122,7 @@ void MainComponent::childBoundsChanged(Component* child)
 
     mainDeckHolder->setBounds(getX() + mixDeckGui->getWidth(), getY() + controlDeckGui->getHeight(),
                               getWidth() - mixDeckGui->getWidth(),
-                              getHeight() - freeDeckGui->getHeight() - controlDeckGui->getHeight());
+                              getHeight() - freeDeckGui->getHeight() - controlDeckGui->getHeight());*/
 }
 
 //ApplicationCommandTarget methods
@@ -152,3 +178,76 @@ bool MainComponent::perform(const InvocationInfo& info)
     return true;
 }
 
+
+
+void MainComponent::newOpenGLContextCreated() {
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGui_ImplJuce_Init(*this, glCtx);
+    ImGui_ImplOpenGL3_Init();
+
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigWindowsMoveFromTitleBarOnly = true;
+}
+
+void MainComponent::renderOpenGL() {
+    using namespace juce::gl;
+
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplJuce_NewFrame();
+    ImGui::NewFrame();
+
+    if (ImGui::BeginMainMenuBar()) {
+        if (ImGui::BeginMenu("File")) {
+            if (ImGui::MenuItem(MAIN_MENU_EXIT_ITEM)) {
+                // TODO call a shutdown function
+                exit(EXIT_SUCCESS);
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMainMenuBar();
+    }
+
+    ImGui::Begin("Deck", nullptr);
+    {
+        ImGui::LabelText("Hello, world", "d");
+        ImGui::Bullet();
+    }
+    ImGui::End();
+
+    ImGui::Begin("Track", nullptr);
+    {
+        //float *v = new float;
+        //ImGui::DragFloat("", v);
+    }
+    ImGui::End();
+
+	Rectangle<int> r = Desktop::getInstance().getDisplays().getMainDisplay().userArea;
+    int w = r.getWidth();
+	int h = r.getHeight();
+
+    ImGui::SetNextWindowPos(ImVec2(0, h - 300));
+    ImGui::SetNextWindowSize(ImVec2(w, 300));
+    ImGui::Begin("Dump", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
+    {
+    }
+    ImGui::End();
+
+
+    //ImGui::ShowDemoWindow();
+
+    ImGui::Render();
+
+    // background begin
+    glClearColor(0, 0, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+    // background end
+
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void MainComponent::openGLContextClosing() {
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplJuce_Shutdown();
+    ImGui::DestroyContext();
+}

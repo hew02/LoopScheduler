@@ -4,8 +4,9 @@
 
 #include "sproj_2024/gui/MainWindow.h"
 
-MainWindow::MainWindow (const juce::String& name, MainComponent* mainComponent) : DocumentWindow (name, juce::Desktop::getInstance().getDefaultLookAndFeel().findColour
-                           (ResizableWindow::backgroundColourId), DocumentWindow::allButtons)
+MainWindow::MainWindow (const juce::String& name, MainComponent* mainComponent) 
+    : DocumentWindow (name, juce::Desktop::getInstance().getDefaultLookAndFeel().findColour
+        (ResizableWindow::backgroundColourId), DocumentWindow::allButtons)
 {
     setUsingNativeTitleBar (true);
     setContentOwned (mainComponent, true);
@@ -13,7 +14,6 @@ MainWindow::MainWindow (const juce::String& name, MainComponent* mainComponent) 
     setResizable (true, true);
     centreWithSize(getWidth(), getHeight());
     setFullScreen(true);
-    
     setVisible(true);
 
     //MELATONIN WINDOW

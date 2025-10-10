@@ -1,7 +1,14 @@
 #pragma once
-#include <juce_gui_extra/juce_gui_extra.h>
+
+/*#include <juce_gui_extra/juce_gui_extra.h>
 #include <juce_audio_devices/juce_audio_devices.h>
-#include <juce_audio_utils/juce_audio_utils.h>
+#include <juce_audio_utils/juce_audio_utils.h>*/
+
+#include <JuceHeader.h>
+#include <imgui.h>
+#include <imgui_impl_opengl3.h>
+#include <imgui_impl_juce/imgui_impl_juce.h>
+
 #include "RulerDeckGUI.h"
 #include "ControlDeckGUI.h"
 #include "FreeDeckGUI.h"
@@ -10,27 +17,33 @@
 #include "DeviceSelectionMenu.h"
 #include "MainDeckHolder.h"
 
-class MainComponent final : public juce::Component,
-                            public juce::ApplicationCommandTarget
+#define MAIN_MENU_EXIT_ITEM "Exit"
+
+class MainComponent final 
+    : public juce::Component, public juce::ApplicationCommandTarget, public juce::OpenGLRenderer
 {
 public:
 
     explicit MainComponent(const juce::ValueTree& tree, SPCommandManager& manager, juce::AudioDeviceManager& deviceManager);
-
-    ~MainComponent() override;
+    ~MainComponent();
 
     void createNewTrack();
     void createNewDummyClip();
     void initializeApplication();
     void startOrStopAnimation();
 
-    //Component methods
+    // ImGui methods
+    void newOpenGLContextCreated() override;
+    void renderOpenGL() override;
+    void openGLContextClosing() override;
+
+    // Component methods
     void paint (juce::Graphics&) override;
-    void resized() override;
+    void resized();
     void childBoundsChanged(Component *child) override;
 
-    //ApplicationCommandTarget methods
-    ApplicationCommandTarget *getNextCommandTarget() override;
+    // ApplicationCommandTarget methods
+    ApplicationCommandTarget* getNextCommandTarget() override;
     void getAllCommands(juce::Array<juce::CommandID> &c) override;
     void getCommandInfo(const juce::CommandID commandID, juce::ApplicationCommandInfo &result) override;
     bool perform(const InvocationInfo &info) override;
@@ -53,6 +66,8 @@ private:
     std::shared_ptr<DeviceSelectionMenu> deviceSelector;
 
     juce::ValueTree valueTree;
+
+    juce::OpenGLContext glCtx;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
