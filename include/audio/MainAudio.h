@@ -5,16 +5,7 @@
 /*
 TODO:
 
-Each track is an AudioProcessor, which is able to record audio form an Audio Device.
-the AudioProcessor then should save all the recorded audio in a BUFFER, which will
-get played accordingly (how is the AudioProcessor then gonna play the recorded stuff?)
-
-each of these tracks are then assigned a AudioProcessorPlayer and then added to an AudioGraph
-which is in charged of mixing all of the tracks together
-
-ADD MIDI
-
- */
+*/
 
 #pragma once
 

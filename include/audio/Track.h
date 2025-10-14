@@ -184,6 +184,7 @@ public:
     }
 
     //ValueTreeListener methods
+
     //Update Track Gain
     void valueTreePropertyChanged(juce::ValueTree& treeWhosePropertyHasChanged,
                                   const juce::Identifier& property) override
@@ -273,7 +274,6 @@ public:
         currentBeat++;
         if (currentBeat == 160) //For further implementations: do this during runtime
         {
-
             currentBeat = 0;
             //std::cout << currentBeat << std::endl;
         }
@@ -281,30 +281,22 @@ public:
 
 private:
     ProcessorMode currentType = ProcessorMode::player_Type;
-
     SPCommandManager& commandManager;
-
     juce::File lastRecording;
-
     Recorder recorder{};
     AudioPlayer player{};
-
     float gain = player.getGain();
-
-    int numFiles = 0;
-
     juce::ValueTree trackValueTree;
     juce:: ValueTree freeDeckValueTree;
-
     std::vector<ClipData> clipData; //to hold all clip values and ID
-
     int currentBeat = 0;
 
+    int numFiles = 0;
     juce::String createNewFileName()
     {
         std::ostringstream oss;
         numFiles++;
-        oss << "Sproj2024_file_" << std::setw(3) << std::setfill('0') << numFiles;
+        oss << "loopScheduler_file_" << std::setw(3) << std::setfill('0') << numFiles;
         return juce::String{oss.str()};
     }
 };

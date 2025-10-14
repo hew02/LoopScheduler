@@ -27,8 +27,7 @@ MainAudio::~MainAudio()
     deviceManager.closeAudioDevice();
 }
 
-void MainAudio::initGraph()
-{
+void MainAudio::initGraph() {
     audioGraph->clear();
 
     inputNode = audioGraph->addNode(
@@ -42,10 +41,8 @@ void MainAudio::initGraph()
     //initialize metronome
 
     clockNode = audioGraph->addNode(std::make_unique<AudioClock>(valueTree));
-    //would it be better to keep a reference to this AudioClock object to give to tracks later?
 
     connectNode(clockNode);
-
 }
 
 void MainAudio::addNewTrack(juce::ValueTree& node)
