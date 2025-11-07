@@ -7,7 +7,7 @@
 #include "AudioPlayer.h"
 #include <sproj_2024/gui/SPCommandManager.h>
 #include "AudioClock.h"
-#include <sproj_2024/helpers/helpers.h>
+#include <sproj_2024/helpers/helpers.hpp>
 
 /*  Track
  *

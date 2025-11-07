@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(sproj2024 VERSION 0.0.1)
+project(LoopScheduler VERSION 0.0.1)
 
 # Currently, JUCE supports only C++ 20 cross-platform.
 set(CMAKE_CXX_STANDARD 20)

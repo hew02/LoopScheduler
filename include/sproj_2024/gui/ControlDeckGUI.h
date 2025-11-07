@@ -4,7 +4,7 @@
 
 #pragma once
 #include "DeckGUI.h"
-#include <sproj_2024/helpers/helpers.h>
+#include <sproj_2024/helpers/helpers.hpp>
 #include <focusrite/e2e/ComponentSearch.h>
 
 //Metronome class

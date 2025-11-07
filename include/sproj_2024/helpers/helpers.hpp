@@ -5,32 +5,52 @@
 #pragma once
 #include <juce_gui_basics/juce_gui_basics.h>
 
+#define VERSION "0.0.1"
+#define BIN_NAME "loopsch"
+#define BIN_NAME_FULL "LoopScheduler"
+
+/**
+ * Log/trace program executions.
+ * @param fmt A formatted string
+ */
+#define LOG(fmt, ...) { \
+    fprintf(stdout, "%s: " fmt "\n", BIN_NAME); \
+    }
+/**
+ *
+ * @param fmt A formatted error string
+ * @todo Check if terminal supports 256 colors and print errors with VT100 escape colors.
+ */
+#define ERROR(fmt, ...) { \
+    fprintf(stderr, "%s: error: " fmt "\n", BIN_NAME); \
+    }
+
 namespace SP_ID
 {
     #define DECLARE_ID(name) const juce::Identifier name (#name);
 
-    //names for branches
+    // names for branches
     DECLARE_ID (MAIN_BRANCH)
     DECLARE_ID (TRACK_BRANCH)
     DECLARE_ID (METRONOME_BRANCH)
     DECLARE_ID (FREEDECK_BRANCH)
 
-    //Unique IDs for Tracks and Clips
+    // Unique IDs for Tracks and Clips
     DECLARE_ID (U_ID)
     DECLARE_ID (TRACK)
     DECLARE_ID (CLIP)
 
-    //values
+    // values
 
-    //metronome
+    // metronome
     DECLARE_ID (metronome_grouping)
     DECLARE_ID (metronome_bpm)
     DECLARE_ID (metronome_gain)
 
-    //track
+    // track
     DECLARE_ID (track_gain)
 
-    //clips
+    // clips
     DECLARE_ID (clip_start_value)
     DECLARE_ID (clip_end_value)
     DECLARE_ID (clip_length_value)

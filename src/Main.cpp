@@ -4,7 +4,8 @@
 
 #include <sproj_2024/audio/MainAudio.h>
 #include <sproj_2024/gui/MainWindow.h>
-#include <sproj_2024/helpers/helpers.h>
+#include <memory>
+#include <sproj_2024/helpers/helpers.hpp>
 #include <sproj_2024/gui/SPCommandManager.h>
 #include <focusrite/e2e/TestCentre.h>
 
@@ -53,7 +54,7 @@ public:
     // you could `#audio <JuceHeader.h>` and use `ProjectInfo::projectName` etc. instead.
     const juce::String getApplicationName() override { return JUCE_APPLICATION_NAME_STRING; }
     const juce::String getApplicationVersion() override { return JUCE_APPLICATION_VERSION_STRING; }
-    bool moreThanOneInstanceAllowed() { return false; }
+    bool moreThanOneInstanceAllowed() override { return false; }
 
     //==============================================================================
     void initialise(const juce::String& commandLine) override
@@ -71,7 +72,7 @@ public:
 
         mainComponent = std::make_unique<MainComponent>(valueTree, *commandManager, *deviceManager);
 
-        mainWindow.reset(new MainWindow(getApplicationName(), mainComponent.get()));
+        mainWindow = std::make_unique<MainWindow>(getApplicationName(), mainComponent.get());
 
         commandManager->registerAllCommandsForTarget(this);
         commandManager->addTargetToCommandManager(this);
@@ -83,7 +84,9 @@ public:
         testCentre = focusrite::e2e::TestCentre::create();
     }
 
-    void shutdown() {
+    void shutdown() override {
+        LOG("\nrunning shutdown routine");
+
         mainComponent = nullptr;
         mainWindow = nullptr;
         commandManager = nullptr;
@@ -94,7 +97,7 @@ public:
     }
 
     //==============================================================================
-    void systemRequestedQuit() {
+    void systemRequestedQuit() override {
         // This is called when the app is being asked to quit: you can ignore this
         // request and let the app carry on running, or call quit() to allow the app to close.
         quit();

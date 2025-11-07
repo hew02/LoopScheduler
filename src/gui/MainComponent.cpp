@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <focusrite/e2e/ComponentSearch.h>
 
+#include "sproj_2024/gui/Timeline.hpp"
+
 /**
  * @brief Construct a new Main Component:: Main Component object
  * 
@@ -49,6 +51,11 @@ MainComponent::MainComponent(const juce::ValueTree& tree, SPCommandManager& mana
 
     // TODO: ez create a new track
     //createNewTrack();
+
+    timeline.frameMin = -100;
+    timeline.frameMax = 1000;
+    timeline.items.push_back(ImTimeline::ImTimeline::TimelineItem{ 0, 10, 30, false });
+    //timeline.
 }
 
 /**
@@ -200,15 +207,16 @@ void MainComponent::renderOpenGL() {
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem(MAIN_MENU_EXIT_ITEM)) {
-                // TODO call a shutdown function
-                exit(EXIT_SUCCESS);
+                if (juce::JUCEApplicationBase::isStandaloneApp()) {
+                    juce::JUCEApplicationBase::quit();
+                }
             }
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
     }
 
-    ImGui::Begin("Deck", nullptr);
+    /*ImGui::Begin("Deck", nullptr);
     {
         ImGui::LabelText("Hello, world", "d");
         ImGui::Bullet();
@@ -220,18 +228,94 @@ void MainComponent::renderOpenGL() {
         //float *v = new float;
         //ImGui::DragFloat("", v);
     }
-    ImGui::End();
+    ImGui::End();*/
+    ImGuiStyle& style = ImGui::GetStyle();
+    ImVec4* colors = style.Colors;
 
-	Rectangle<int> r = Desktop::getInstance().getDisplays().getMainDisplay().userArea;
-    int w = r.getWidth();
-	int h = r.getHeight();
+	const juce::Rectangle<int> r = juce::Desktop::getInstance().getDisplays().getMainDisplay().userArea;
+    const int w = r.getWidth();
+	const int h = r.getHeight();
+
+    ImGui::SetNextWindowPos(ImVec2(0, 40));
+    ImGui::SetNextWindowSize(ImVec2(w, 300));
+    if (ImGui::Begin("Timeline", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse)) {
+        static int selectedEntry = -1;
+        static int firstFrame = 0;
+        static bool expanded = true;
+        static int currentFrame = 100;
+
+        ImGui::PushItemWidth(130);
+        ImGui::InputInt("Frame Min", &timeline.frameMin);
+        ImGui::SameLine();
+        ImGui::InputInt("Frame ", &currentFrame);
+        ImGui::SameLine();
+        ImGui::InputInt("Frame Max", &timeline.frameMax);
+        ImGui::PopItemWidth();
+
+        ImTimeline::Timeline(&timeline, &currentFrame, &expanded, &selectedEntry, &firstFrame,
+            ImTimeline::TIMELINE_EDIT_STARTEND | ImTimeline::TIMELINE_ADD | ImTimeline::TIMELINE_DEL
+            | ImTimeline::TIMELINE_COPYPASTE | ImTimeline::TIMELINE_CHANGE_FRAME);
+
+        if (selectedEntry != -1) {
+            const ImTimeline::ImTimeline::TimelineItem &item = timeline.items[selectedEntry];
+            //ImGui::Text("I am a %s, please edit me", SequencerItemTypeNames[item.type]);
+            // switch (type) ....
+        }
+
+        ImGui::End();
+    }
+    //ImGui::Begin("Tracks", nullptr);
+    {
+        //const auto newBgColor = ImVec4(1.f, 1.f, 0.f, 0.8f);
+        //colors[ImGuiCol_WindowBg] = newBgColor;
+
+        //ImDrawList* drawList = ImGui::GetWindowDrawList();
+
+        //const ImU32 color = IM_COL32(255, 0, 0, 255);
+
+        //ImTimeline::Timeline()
+
+        /*if (ImGui::BeginTable("MyTable", 2, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)) {
+            ImGui::TableSetupColumn("Column A");
+            ImGui::TableSetupColumn("Column B");
+            ImGui::TableHeadersRow();
+
+            ImGui::TableNextRow();
+            ImGui::TableSetColumnIndex(0);
+            ImGui::Text("Data A1");
+            ImGui::TableSetColumnIndex(1);
+            ImGui::Text("Data B1");
+
+            // Row 2
+            ImGui::TableNextRow();
+            ImGui::TableSetColumnIndex(0);
+            ImGui::Text("Data A2");
+            ImGui::TableSetColumnIndex(1);
+            ImGui::Text("Data B2");
+
+            ImGui::EndTable();
+        }*/
+
+
+        //ImGui::Text("Track #1");
+
+        /*auto x1 = ImVec2(0, 0);
+        auto x2 = ImVec2(10, 100);
+
+        drawList->AddRectFilled(x1, x2, color);
+        x1.x += 20;
+        x2.x += 20;
+        drawList->AddRectFilled(x1, x2, color);*/
+
+
+        //ImGui::Text("Track #2");
+    }
 
     ImGui::SetNextWindowPos(ImVec2(0, h - 300));
     ImGui::SetNextWindowSize(ImVec2(w, 300));
-    ImGui::Begin("Dump", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
-    {
+    if (ImGui::Begin("Dump", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse)) {
+        ImGui::End();
     }
-    ImGui::End();
 
 
     //ImGui::ShowDemoWindow();

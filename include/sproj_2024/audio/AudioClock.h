@@ -5,7 +5,7 @@
 
 #include "SPAudioProcessor.h"
 #include <random>
-#include <sproj_2024/helpers/helpers.h>
+#include <sproj_2024/helpers/helpers.hpp>
 
 /* WavetableOscillator
  *

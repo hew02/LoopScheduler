@@ -5,9 +5,9 @@
 #include <juce_audio_utils/juce_audio_utils.h>*/
 
 #include <JuceHeader.h>
-#include <imgui.h>
-#include <imgui_impl_opengl3.h>
-#include <imgui_impl_juce/imgui_impl_juce.h>
+#include "imgui.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_juce/imgui_impl_juce.h"
 
 #include "RulerDeckGUI.h"
 #include "ControlDeckGUI.h"
@@ -16,6 +16,7 @@
 #include "MenuComponent.h"
 #include "DeviceSelectionMenu.h"
 #include "MainDeckHolder.h"
+#include "Timeline.hpp"
 
 #define MAIN_MENU_EXIT_ITEM "Exit"
 
@@ -33,9 +34,9 @@ public:
     void startOrStopAnimation();
 
     // ImGui methods
-    void newOpenGLContextCreated() override;
-    void renderOpenGL() override;
-    void openGLContextClosing() override;
+    void newOpenGLContextCreated();
+    void renderOpenGL();
+    void openGLContextClosing();
 
     // Component methods
     void paint (juce::Graphics&) override;
@@ -66,6 +67,10 @@ private:
     std::shared_ptr<DeviceSelectionMenu> deviceSelector;
 
     juce::ValueTree valueTree;
+
+    // ImGui stuff
+
+    ImTimeline::ImTimeline timeline;
 
     juce::OpenGLContext glCtx;
 
